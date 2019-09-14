@@ -1,25 +1,28 @@
 'use strict';
 
+var CLOUD_RADIUS = 10;
 var CLOUD_HEIGHT = 270;
 var CLOUD_WIDTH = 420;
-var CLOUD_X = 110;
+var CLOUD_X = 100;
 var CLOUD_Y = 10;
+var CLOUD_COLOR = '#fff';
+var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 var GAP = 25;
 var TEXT_HEIGHT = 20;
 
 var BAR_GAP_RATIO = 2;
 var BAR_HEIGHT = 150;
 var BAR_WIDTH = 40;
-var BAR_TRANSLATE_X = 75;
-var BAR_TRANSLATE_DX = 100;
-var BAR_TRANSLATE_Y = 400;
+var BAR_TRANSLATE_X = 65;
+var BAR_TRANSLATE_DX = 90;
+var BAR_TRANSLATE_Y = 390;
 
 var TIME_X = 310;
 var TIME_TRANSLATE_X = -250;
 var TIME_TRANSLATE_Y = -395;
 var TIME_GAP_X_RATIO = 1;
-var TIME_GAP_DX_RATIO = 4;
-var TIME_GAP_DY_RATIO = 3;
+var TIME_GAP_DX_RATIO = 3.6;
+var TIME_GAP_DY_RATIO = 3.5;
 
 var ROTATE_ANGLE = 90;
 var TO_RADIANS = 180;
@@ -61,8 +64,8 @@ var getRandomSaturation = function () {
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + CLOUD_Y, CLOUD_Y + CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, 10, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, 10, '#fff');
+  renderCloud(ctx, CLOUD_X + CLOUD_Y, CLOUD_Y + CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, CLOUD_SHADOW_COLOR);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, CLOUD_COLOR);
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
