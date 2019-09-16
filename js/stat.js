@@ -46,8 +46,7 @@ var renderCloud = function (ctx, x, y, width, height, radius, color) {
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
   if (arr.length === 0) {
-    arr[0] = 1;
-    maxElement = arr[0];
+    maxElement = 1;
   } else {
     for (var i = 0; i < arr.length; i++) {
       if (arr[i] > maxElement) {
@@ -80,7 +79,7 @@ var renderColumns = function (ctx, i, players, times, maxTime) {
   ctx.translate(BAR_TRANSLATE_X + (BAR_TRANSLATE_DX * i), BAR_TRANSLATE_Y);
   ctx.rotate((Math.PI / TO_RADIANS) * -ROTATE_ANGLE);
   ctx.fillRect(CLOUD_X + GAP * BAR_GAP_RATIO, CLOUD_Y + GAP * BAR_GAP_RATIO,
-      (BAR_HEIGHT * times[i]) / maxTime, BAR_WIDTH);
+    (BAR_HEIGHT * times[i]) / maxTime, BAR_WIDTH);
   ctx.save();
   ctx.rotate((Math.PI / TO_RADIANS) * ROTATE_ANGLE);
   ctx.translate(TIME_TRANSLATE_X, TIME_TRANSLATE_Y);
@@ -103,9 +102,52 @@ window.renderStatistics = function (ctx, players, times) {
     times.splice(players.length + 1);
   }
 
-  var maxTime = getMaxElement(times);
+  var players = [];
+  var testTime = [];
+  var maxTime = 0;
+  console.log(testTime);
+  console.log(maxTime);
 
-  for (var i = 0; i < players.length; i++) {
-    renderColumns(ctx, i, players, times, maxTime);
+  var playersReplacement = [];
+  var timesReplacement = [];
+  
+  if (players.length > 0) {
+    if (testTime.length === 0) {
+
+      for (i = 0; i < players.length; i++) {
+        timesReplacement[i] = 1;
+      }
+      maxTime = getMaxElement(timesReplacement);
+      for (i = 0; i < players.length; i++) {
+        renderColumns(ctx, i, players, timesReplacement, maxTime);
+      }
+    } else {
+      maxTime = getMaxElement(testTime);
+      for (var i = 0; i < players.length; i++) {
+        renderColumns(ctx, i, players, testTime, maxTime);
+      }
+    }
+  } else if (testTime.length === 0) {
+    var defaultArrLength = 4;
+    for (i = 0; i < defaultArrLength; i++) {
+      playersReplacement[i] = 'Repl ' + i;
+      timesReplacement[i] = 1;
+    }
+    maxTime = getMaxElement(timesReplacement);
+    for (i = 0; i < players.length; i++) {
+      renderColumns(ctx, i, playersReplacement, timesReplacement, maxTime);
+    }
+  } else {
+    for (i = 0; i < times.length; i++) {
+      playersReplacement[i] = 'Repl ' + i;
+    }
+    maxTime = getMaxElement(testTime);
+    for (i = 0; i < players.length; i++) {
+      renderColumns(ctx, i, playersReplacement, testTime, maxTime);
+    }
   }
+
+  // for (var i = 0; i < players.length; i++) {
+  //   renderColumns(ctx, i, players, testTime, maxTime);
+  // }
 };
