@@ -1,10 +1,6 @@
 'use strict';
 
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
-
-document.querySelector('.setup-similar').classList.remove('hidden');
-
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
@@ -18,6 +14,8 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZAR_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко',
   'Топольницкая', 'Нионго', 'Ирвинг'];
 
+var wizards = [];
+
 var getRandomElement = function (arr) {
   return arr[Math.round((Math.random() * (arr.length - 1)))];
 };
@@ -27,28 +25,15 @@ var getRandomWizardName = function () {
     ' ' + getRandomElement(WIZAR_SURNAMES);
 };
 
-var wizards = [
-  {
-    name: getRandomWizardName(),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyeColor: getRandomElement(EYE_COLORS)
-  },
-  {
-    name: getRandomWizardName(),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyeColor: getRandomElement(EYE_COLORS)
-  },
-  {
-    name: getRandomWizardName(),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyeColor: getRandomElement(EYE_COLORS)
-  },
-  {
-    name: getRandomWizardName(),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyeColor: getRandomElement(EYE_COLORS)
+var createRandomWizards = function () {
+  for (var i = 0; i < 4; i++) {
+    wizards[i] = {
+      name: getRandomWizardName(),
+      coatColor: getRandomElement(COAT_COLORS),
+      eyeColor: getRandomElement(EYE_COLORS)
+    };
   }
-];
+};
 
 var renderWizard = function (i) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -71,5 +56,17 @@ var renderFragment = function () {
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 };
 
-renderFragment();
+var showDomElements = function () {
+  userDialog.classList.remove('hidden');
+  document.querySelector('.setup-similar').classList.remove('hidden');
+};
+
+var renderMocData = function () {
+  createRandomWizards();
+  renderFragment();
+};
+
+renderMocData();
+showDomElements();
+
 
