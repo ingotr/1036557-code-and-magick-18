@@ -49,12 +49,12 @@ var createRandomWizards = function (arr, numberOfWizards) {
   }
 };
 
-var renderWizard = function (obj) {
+var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = obj.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = obj.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = obj.eyeColor;
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
 
   return wizardElement;
 };
@@ -91,6 +91,17 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
+var getRandomElementColor = function (element, arrOfColors, hiddenElement) {
+  element.style.fill = getRandomElement(arrOfColors);
+  hiddenElement[HIDDEN_ELEMENT_NUMBER].value = element.style.fill;
+};
+
+var getRandomFireballColor = function () {
+  var randomColor = getRandomElement(FIREBALL_COLORS);
+  setupFireball.style.background = randomColor;
+  setupHiddenFireballColor[HIDDEN_ELEMENT_NUMBER].value = randomColor;
+};
+
 setupOpen.addEventListener('click', function () {
   openPopup();
 });
@@ -120,20 +131,15 @@ userNameInput.addEventListener('blur', function () {
 });
 
 setupWizardCoat.addEventListener('click', function () {
-  setupWizardCoat.style.fill = getRandomElement(COAT_COLORS);
-  setupHiddenCoatColor[HIDDEN_ELEMENT_NUMBER].value = setupWizardCoat.style.fill;
+  getRandomElementColor(setupWizardCoat, COAT_COLORS, setupHiddenCoatColor);
 });
 
 setupWizardEyes.addEventListener('click', function () {
-  setupWizardEyes.style.fill = getRandomElement(EYE_COLORS);
-  setupHiddenEyesColor[HIDDEN_ELEMENT_NUMBER].value = setupWizardEyes.style.fill;
+  getRandomElementColor(setupWizardEyes, EYE_COLORS, setupHiddenEyesColor);
 });
 
 setupFireball.addEventListener('click', function () {
-  setupFireball.style.background = getRandomElement(FIREBALL_COLORS);
-  setupHiddenFireballColor[HIDDEN_ELEMENT_NUMBER].value = setupFireball.style.background;
-  // console.log(setupFireball);
-  // console.log(setupHiddenFireballColor[HIDDEN_ELEMENT_NUMBER].value);
+  getRandomFireballColor();
 });
 
 renderMockData();
