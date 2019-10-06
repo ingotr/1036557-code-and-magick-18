@@ -9,19 +9,14 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZAR_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко',
   'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_NUMBER = 4;
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
 var HIDDEN_ELEMENT_NUMBER = 0;
 
 
 var setup = document.querySelector('.setup');
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = setup.querySelector('.setup-close');
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
-var userNameInput = setup.querySelector('.setup-user-name');
 var setupWizardCoat = setup.querySelector('.setup-wizard .wizard-coat');
 var setupHiddenCoatColor = document.getElementsByName('coat-color');
 var setupWizardEyes = setup.querySelector('.setup-wizard .wizard-eyes');
@@ -75,22 +70,6 @@ var renderMockData = function () {
   renderFragment();
 };
 
-var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closePopup();
-  }
-};
-
-var openPopup = function () {
-  setup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
-};
-
-var closePopup = function () {
-  setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
-};
-
 var getRandomElementColor = function (element, arrOfColors, hiddenElement) {
   element.style.fill = getRandomElement(arrOfColors);
   hiddenElement[HIDDEN_ELEMENT_NUMBER].value = element.style.fill;
@@ -101,34 +80,6 @@ var getRandomFireballColor = function () {
   setupFireball.style.background = randomColor;
   setupHiddenFireballColor[HIDDEN_ELEMENT_NUMBER].value = randomColor;
 };
-
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
-
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    openPopup();
-  }
-});
-
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
-
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    closePopup();
-  }
-});
-
-userNameInput.addEventListener('focus', function () {
-  document.removeEventListener('keydown', onPopupEscPress);
-});
-
-userNameInput.addEventListener('blur', function () {
-  document.addEventListener('keydown', onPopupEscPress);
-});
 
 setupWizardCoat.addEventListener('click', function () {
   getRandomElementColor(setupWizardCoat, COAT_COLORS, setupHiddenCoatColor);
