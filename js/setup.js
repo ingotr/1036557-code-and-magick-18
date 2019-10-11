@@ -7,6 +7,8 @@
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var WIZARD_NUMBER = 4;
   var HIDDEN_ELEMENT_NUMBER = 0;
+  var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
+  var URL_SAVE = 'https://js.dump.academy/code-and-magick';
 
 
   var setup = document.querySelector('.setup');
@@ -50,7 +52,7 @@
   form.addEventListener('submit', function (evt) {
     window.save(new FormData(form), function () {
       setup.classList.add('hidden');
-    });
+    }, errorHandler, URL_SAVE);
     evt.preventDefault();
   });
 
@@ -91,5 +93,5 @@
   });
 
   // renderMockData();
-  window.load(loadHandler, errorHandler);
+  window.load(loadHandler, errorHandler, URL_LOAD);
 })();

@@ -1,15 +1,15 @@
 'use strict';
 
 (function () {
-  var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
-  var URL_SAVE = 'https://js.dump.academy/code-and-magick';
+  var REQUEST_STATUS_OK = 200;
+  var XHR_TIMEOUT = 10000;
 
-  window.load = function (onLoad, onError) {
+  var commonRequest = function (onLoad, onError, requestType, URL, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === REQUEST_STATUS_OK) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -22,25 +22,21 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = XHR_TIMEOUT;
+    xhr.open(requestType, URL);
 
-    xhr.open('GET', URL_LOAD);
-    xhr.send();
+    if (requestType === 'POST') {
+      xhr.send(data);
+    } else {
+      xhr.send();
+    }
   };
 
-  window.save = function (data, onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+  window.load = function (onLoad, onError, URL) {
+    commonRequest(onLoad, onError, 'GET', URL);
+  };
 
-    xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.open('POST', URL_SAVE);
-    xhr.send(data);
+  window.save = function (data, onLoad, onError, URL) {
+    commonRequest(onLoad, onError, 'POST', URL, data);
   };
 })();
