@@ -43,6 +43,5 @@
     hiddenFireballColor[HIDDEN_ELEMENT_NUMBER].value = randomColor;
   };
 
-  // eslint-disable-next-line no-return-assign
-  return window.wizard = wizard;
+  window.wizard = wizard;
 })();
