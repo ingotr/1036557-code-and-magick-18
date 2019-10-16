@@ -21,7 +21,7 @@
   };
 
   var updateWizards = function () {
-    window.render(wizards.slice().
+    window.render.render(wizards.slice().
       sort(function (left, right) {
         var rankDiff = getRank(right) - getRank(left);
         if (rankDiff === 0) {
@@ -33,12 +33,12 @@
 
   window.wizard.onEyesChange = function (color) {
     eyesColor = color;
-    window.debounce(updateWizards);
+    window.debounce.debounce(updateWizards);
   };
 
   window.wizard.onCoatChange = function (color) {
     coatColor = color;
-    window.debounce(updateWizards);
+    window.debounce.debounce(updateWizards);
   };
 
   var loadHandler = function (data) {
@@ -46,17 +46,19 @@
     updateWizards();
   };
 
-  window.errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '40px';
+  window.similar = {
+    errorHandler: function (errorMessage) {
+      var node = document.createElement('div');
+      node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      node.style.position = 'absolute';
+      node.style.left = 0;
+      node.style.right = 0;
+      node.style.fontSize = '40px';
 
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+      node.textContent = errorMessage;
+      document.body.insertAdjacentElement('afterbegin', node);
+    },
   };
 
-  window.load(loadHandler, window.errorHandler, URL_LOAD);
+  window.backend.load(loadHandler, window.similar.errorHandler, URL_LOAD);
 })();
