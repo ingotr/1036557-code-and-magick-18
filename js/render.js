@@ -30,13 +30,4 @@
       similar.classList.remove('hidden');
     },
   };
-  // window.render = function (data) {
-  //   var takeNumber = data.length > WIZARD_NUMBER ? WIZARD_NUMBER : data.length;
-  //   similarList.innerHTML = '';
-  //   for (var i = 0; i < takeNumber; i++) {
-  //     similarList.appendChild(renderWizard(data[i]));
-  //   }
-
-  //   similar.classList.remove('hidden');
-  // };
 })();
