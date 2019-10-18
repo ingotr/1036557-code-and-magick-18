@@ -32,11 +32,12 @@
     }
   };
 
-  window.load = function (onLoad, onError, URL) {
-    commonRequest(onLoad, onError, 'GET', URL);
-  };
-
-  window.save = function (data, onLoad, onError, URL) {
-    commonRequest(onLoad, onError, 'POST', URL, data);
+  window.backend = {
+    load: function (onLoad, onError, URL) {
+      commonRequest(onLoad, onError, 'GET', URL);
+    },
+    save: function (data, onLoad, onError, URL) {
+      commonRequest(onLoad, onError, 'POST', URL, data);
+    },
   };
 })();
